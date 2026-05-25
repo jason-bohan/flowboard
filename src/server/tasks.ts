@@ -24,9 +24,13 @@ router.get('/', (_req: Request, res: Response) => {
 });
 
 // POST /api/tasks
-// BUG 1: no validation that title is non-empty — silently creates task with ''
 router.post('/', (req: Request, res: Response) => {
   const { title = '', description = '', status = 'todo' } = req.body as Partial<Task>;
+
+  if (!title.trim()) {
+    res.status(400).json({ error: 'title is required' });
+    return;
+  }
 
   const validStatuses: Task['status'][] = ['todo', 'in-progress', 'done'];
   if (!validStatuses.includes(status)) {
