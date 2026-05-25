@@ -1,12 +1,11 @@
-import Database, { type Database as DB } from 'better-sqlite3';
+import { createRequire } from 'node:module';
 import type { Task } from '../client/types.js';
 
-const db: DB = new Database(
+const { DatabaseSync } = createRequire(import.meta.url)('node:sqlite') as typeof import('node:sqlite');
+
+const db = new DatabaseSync(
   process.env.NODE_ENV === 'test' ? ':memory:' : './flowboard.db'
 );
-
-// Enable WAL mode for better concurrent read performance
-db.pragma('journal_mode = WAL');
 
 // Initialize schema on import
 db.exec(`
@@ -20,7 +19,7 @@ db.exec(`
 `);
 
 export function getAllTasks(): Task[] {
-  return db.prepare('SELECT * FROM tasks ORDER BY id ASC').all() as Task[];
+  return db.prepare('SELECT * FROM tasks ORDER BY id ASC').all() as unknown as Task[];
 }
 
 export function getTaskById(id: number): Task | undefined {
@@ -36,7 +35,7 @@ export function createTask(
     'INSERT INTO tasks (title, description, status) VALUES (?, ?, ?)'
   );
   const result = stmt.run(title, description, status);
-  return getTaskById(result.lastInsertRowid as number)!;
+  return getTaskById(Number(result.lastInsertRowid))!;
 }
 
 export function updateTask(
@@ -54,7 +53,7 @@ export function updateTask(
 
 export function deleteTask(id: number): boolean {
   const result = db.prepare('DELETE FROM tasks WHERE id = ?').run(id);
-  return result.changes > 0;
+  return (result.changes as number) > 0;
 }
 
 export function getStats(): { todo: number; inProgress: number; done: number } {

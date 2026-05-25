@@ -3,7 +3,7 @@ services:
     name: flowboard
     runtime: node
     plan: free
-    buildCommand: npm install && npm rebuild better-sqlite3 && npm run build
+    buildCommand: npm install && npm run build
     startCommand: node dist/server/index.js
     envVars:
       - key: NODE_ENV
