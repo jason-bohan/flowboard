@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: flowboard
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npx tsc -p tsconfig.server.json && npm run build:client
+    startCommand: node dist/server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000

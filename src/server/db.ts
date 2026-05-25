@@ -1,7 +1,7 @@
-import Database from 'better-sqlite3';
+import Database, { type Database as DB } from 'better-sqlite3';
 import type { Task } from '../client/types.js';
 
-const db = new Database(
+const db: DB = new Database(
   process.env.NODE_ENV === 'test' ? ':memory:' : './flowboard.db'
 );
 

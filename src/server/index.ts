@@ -1,6 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+import { existsSync } from 'fs';
 import tasksRouter from './tasks.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -13,7 +18,15 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
 });
 
-// Only start listening when run directly (not imported by tests)
+// Serve built React client in production
+const clientDist = resolve(__dirname, '../client');
+if (existsSync(clientDist)) {
+  app.use(express.static(clientDist));
+  app.get('*', (_req, res) => {
+    res.sendFile(resolve(clientDist, 'index.html'));
+  });
+}
+
 if (process.env.NODE_ENV !== 'test') {
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
