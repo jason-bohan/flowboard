@@ -67,10 +67,9 @@ export function getStats(): { todo: number; inProgress: number; done: number } {
       .prepare("SELECT COUNT(*) as count FROM tasks WHERE status = 'in-progress'")
       .get() as { count: number }
   ).count;
-  // BUG 3: trailing space in 'done ' means this always returns 0
   const done = (
     db
-      .prepare("SELECT COUNT(*) as count FROM tasks WHERE status = 'done '")
+      .prepare("SELECT COUNT(*) as count FROM tasks WHERE status = 'done'")
       .get() as { count: number }
   ).count;
   return { todo, inProgress, done };

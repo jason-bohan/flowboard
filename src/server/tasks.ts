@@ -51,9 +51,8 @@ router.patch('/:id', (req: Request, res: Response) => {
     return;
   }
 
-  // Fetch BEFORE update — this becomes the stale snapshot we (wrongly) return
-  const before = getTaskById(id);
-  if (!before) {
+  const existing = getTaskById(id);
+  if (!existing) {
     res.status(404).json({ error: 'Task not found' });
     return;
   }
@@ -64,10 +63,7 @@ router.patch('/:id', (req: Request, res: Response) => {
   if (description !== undefined) updates.description = description;
   if (status !== undefined) updates.status = status;
 
-  updateTask(id, updates);
-
-  // BUG 2: returns pre-update state instead of post-update state
-  res.json(before);
+  res.json(updateTask(id, updates));
 });
 
 // DELETE /api/tasks/:id
