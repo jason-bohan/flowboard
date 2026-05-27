@@ -21,7 +21,7 @@ const COLORS: Record<Task['status'], string> = {
 const styles = {
   root: {
     minHeight: '100vh',
-    background: '#0d1117',
+    background: '#c0392b',
     color: '#e6edf3',
     fontFamily: "'Segoe UI', system-ui, sans-serif",
     padding: '0 0 48px',
