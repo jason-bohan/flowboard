@@ -43,7 +43,6 @@ router.post('/', (req: Request, res: Response) => {
 });
 
 // PATCH /api/tasks/:id
-// BUG 2: fetches task BEFORE the update then returns the pre-update snapshot
 router.patch('/:id', (req: Request, res: Response) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
