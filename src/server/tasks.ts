@@ -24,9 +24,13 @@ router.get('/', (_req: Request, res: Response) => {
 });
 
 // POST /api/tasks
-// BUG 1: no validation that title is non-empty — silently creates task with ''
 router.post('/', (req: Request, res: Response) => {
   const { title = '', description = '', status = 'todo' } = req.body as Partial<Task>;
+
+  if (!title.trim()) {
+    res.status(400).json({ error: 'title is required' });
+    return;
+  }
 
   const validStatuses: Task['status'][] = ['todo', 'in-progress', 'done'];
   if (!validStatuses.includes(status)) {
@@ -47,9 +51,8 @@ router.patch('/:id', (req: Request, res: Response) => {
     return;
   }
 
-  // Fetch BEFORE update — this becomes the stale snapshot we (wrongly) return
-  const before = getTaskById(id);
-  if (!before) {
+  const existing = getTaskById(id);
+  if (!existing) {
     res.status(404).json({ error: 'Task not found' });
     return;
   }
@@ -60,10 +63,7 @@ router.patch('/:id', (req: Request, res: Response) => {
   if (description !== undefined) updates.description = description;
   if (status !== undefined) updates.status = status;
 
-  updateTask(id, updates);
-
-  // BUG 2: returns pre-update state instead of post-update state
-  res.json(before);
+  res.json(updateTask(id, updates));
 });
 
 // DELETE /api/tasks/:id
