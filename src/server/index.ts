@@ -11,6 +11,7 @@ import studentLoansRouter from './student-loans.js';
 import cardServicesRouter from './card-services.js';
 import paymentsRouter from './payments.js';
 import telemetryRouter from './telemetry.js';
+import flowModeRouter from './routes/flow-mode.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -27,6 +28,7 @@ app.use('/api/student-loans', studentLoansRouter);
 app.use('/api/cards', cardServicesRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
+app.use('/api', flowModeRouter);
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
