@@ -1,0 +1,19 @@
+{
+    "policy": "PII and regulated data handling notice",
+    "applicable_regulations": ["SOC 2", "PCI DSS", "GDPR", "GLBA"],
+    "data_classifications": {
+        "ssn": { "field": "tax_id", "storage": "encrypted-at-rest", "access": "admin-only" },
+        "card_number": { "field": "payment_token", "storage": "tokenized", "access": "payment-processor-only" },
+        "bank_account": { "field": "account_number", "storage": "encrypted", "access": "admin-approval-required" },
+        "personally_identifiable": { "field": "customer_pii", "storage": "redacted-in-logs", "access": "compliance-team-only" },
+        "kyc_documents": { "field": "identity_verification", "storage": "encrypted", "access": "kyc-officer-role" },
+        "aml_screening": { "field": "sanctions_check", "storage": "audited", "access": "compliance-officer" },
+        "date_of_birth": { "field": "dob", "storage": "redacted", "access": "hr-admin" },
+        "passport_number": { "field": "travel_document_id", "storage": "encrypted", "access": "immigration-officer" }
+    },
+    "redaction_policy": {
+        "logs": "redact all ssn, card_number, bank_account, and passport fields",
+        "prompts": "strip customer_pii and dob before sending to inference provider",
+        "audit": "log all access to regulated data with approver_id and timestamp"
+    }
+}

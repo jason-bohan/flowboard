@@ -4,6 +4,9 @@ import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import { existsSync } from 'fs';
 import tasksRouter from './tasks.js';
+import billingRouter from './billing.js';
+import ledgerRouter from './ledger.js';
+import authRouter from './auth.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -13,6 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/tasks', tasksRouter);
+app.use('/api/billing', billingRouter);
+app.use('/api/ledger', ledgerRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
