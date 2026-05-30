@@ -1,12 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { app } from '../server/index.js';
 
 describe('Billing API — money path and evidence compliance', () => {
-    beforeEach(async () => {
-        // Ensure a fresh invoice for tests
-        await request(app).post('/api/tasks').send({ title: 'Reset state marker' });
-    });
 
     it('creates an invoice and verifies billing amount and currency', async () => {
         const res = await request(app)
