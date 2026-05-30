@@ -12,6 +12,7 @@ const styles = {
     display: 'flex',
     gap: 4,
     marginLeft: 'auto',
+    alignItems: 'center',
   } satisfies CSSProperties,
   btn: {
     border: '1px solid #30363d',
