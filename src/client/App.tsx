@@ -1,6 +1,9 @@
 import { useState, useEffect, CSSProperties } from 'react';
 import type { Task } from './types.js';
 import { fetchTasks, createTask, updateTask, deleteTask } from './api.js';
+import { FlowModeProvider, useFlowMode } from './FlowModeProvider.js';
+import FlowModeSelector from './FlowModeSelector.js';
+import type { FlowMode } from './flowMode.js';
 
 const STATUSES: Task['status'][] = ['todo', 'in-progress', 'done'];
 
@@ -19,13 +22,13 @@ const COLORS: Record<Task['status'], string> = {
 // ── Styles ────────────────────────────────────────────────────────────────────
 
 const styles = {
-  root: {
+  root: (mode: FlowMode): CSSProperties => ({
     minHeight: '100vh',
-    background: '#c0392b',
+    background: mode === 'planner' ? '#1a3a4a' : '#c0392b',
     color: '#e6edf3',
     fontFamily: "'Segoe UI', system-ui, sans-serif",
     padding: '0 0 48px',
-  } satisfies CSSProperties,
+  }),
 
   header: {
     background: '#161b22',
@@ -196,9 +199,10 @@ const styles = {
   } satisfies CSSProperties,
 };
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ── Inner component (receives mode) ────────────────────────────────────────────
 
-export default function App() {
+function Dashboard() {
+  const { mode, loading: modeLoading } = useFlowMode();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTitle, setNewTitle] = useState('');
   const [formError, setFormError] = useState('');
@@ -250,10 +254,11 @@ export default function App() {
   const byStatus = (status: Task['status']) => tasks.filter((t) => t.status === status);
 
   return (
-    <div style={styles.root}>
+    <div style={styles.root(mode)}>
       <header style={styles.header}>
         <span style={styles.logo}>Flowboard</span>
         <span style={styles.subtitle}>AI SDLC demo · Kanban</span>
+        <FlowModeSelector />
       </header>
 
       <form style={styles.formBar} onSubmit={handleAdd}>
@@ -317,5 +322,13 @@ export default function App() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <FlowModeProvider>
+      <Dashboard />
+    </FlowModeProvider>
   );
 }
