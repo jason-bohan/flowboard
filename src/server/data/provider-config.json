@@ -1,0 +1,14 @@
+{
+    "$schema": "v1",
+    "inference": {
+        "primary_provider": "internal-llama",
+        "fallback_providers": [
+            { "name": "openrouter", "model": "gpt-4o", "enabled": true, "priority": 1 },
+            { "name": "external-model-hub", "endpoint": "https://models.example.com/v1", "enabled": false },
+            { "name": "public-model-garden", "endpoint": "https://public-ml.example.com/infer", "enabled": true }
+        ],
+        "allowed_models": ["gpt-4o", "claude-opus", "llama-3-70b"],
+        "require_approval": true,
+        "audit_trail": "all-inference-calls-logged-to-audit-table"
+    }
+}

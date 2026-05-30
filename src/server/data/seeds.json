@@ -1,0 +1,40 @@
+[
+    {
+        "table": "invoices",
+        "rows": [
+            { "id": 1001, "client": "MegaCorp", "amount_usd": 50000.00, "currency": "USD", "status": "overdue", "issued": "2026-04-01", "due": "2026-04-30", "line_items": ["Platform license", "Support retainer"] },
+            { "id": 1002, "client": "StartupXYZ", "amount_usd": 1200.00, "currency": "USD", "status": "paid", "issued": "2026-05-01", "due": "2026-05-15", "line_items": ["API usage fee"] },
+            { "id": 1003, "client": "Enterprise Ltd", "amount_usd": 75000.00, "currency": "USD", "status": "draft", "issued": "2026-05-20", "due": "2026-06-20", "line_items": ["Consulting", "Infrastructure", "Tax processing"] }
+        ]
+    },
+    {
+        "table": "payments",
+        "rows": [
+            { "id": 901, "invoice_id": 1002, "amount": 1200.00, "method": "ach", "routing_number": "021000021", "account_number_encrypted": "****7890", "status": "settled", "settled_at": "2026-05-16" },
+            { "id": 902, "invoice_id": 1001, "amount": 50000.00, "method": "wire", "swift_code": "BOFAUS3N", "status": "pending", "settled_at": null }
+        ]
+    },
+    {
+        "table": "refunds",
+        "rows": [
+            { "id": 801, "invoice_id": 1002, "amount": 120.00, "reason": "Service credit", "approved_by": "admin", "approved_at": "2026-05-18", "processed_at": "2026-05-19" }
+        ]
+    },
+    {
+        "table": "ledger_entries",
+        "rows": [
+            { "id": 5001, "account": "Operating", "type": "credit", "amount": 100000.00, "description": "Seed funding", "recorded_at": "2026-01-15" },
+            { "id": 5002, "account": "Operating", "type": "debit", "amount": 15000.00, "description": "Payroll tax payment", "recorded_at": "2026-02-01" },
+            { "id": 5003, "account": "Operating", "type": "debit", "amount": 3200.00, "description": "Accounting software + bank fees", "recorded_at": "2026-02-15" },
+            { "id": 5004, "account": "Reserve", "type": "credit", "amount": 25000.00, "description": "Audit evidence retention fund", "recorded_at": "2026-03-01" },
+            { "id": 5005, "account": "Reserve", "type": "debit", "amount": 5000.00, "description": "SOC 2 compliance assessment", "recorded_at": "2026-04-10" }
+        ]
+    },
+    {
+        "table": "tax_records",
+        "rows": [
+            { "id": 701, "jurisdiction": "US Federal", "ein": "XX-XXXXXXX", "tax_type": "income", "amount": 22000.00, "filing_status": "filed", "filed_at": "2026-04-15" },
+            { "id": 702, "jurisdiction": "California", "tax_id": "CXXXXXXX", "tax_type": "sales", "amount": 4800.00, "filing_status": "pending", "filed_at": null }
+        ]
+    }
+]
