@@ -7,6 +7,10 @@ import tasksRouter from './tasks.js';
 import billingRouter from './billing.js';
 import ledgerRouter from './ledger.js';
 import authRouter from './auth.js';
+import studentLoansRouter from './student-loans.js';
+import cardServicesRouter from './card-services.js';
+import paymentsRouter from './payments.js';
+import telemetryRouter from './telemetry.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -19,6 +23,10 @@ app.use('/api/tasks', tasksRouter);
 app.use('/api/billing', billingRouter);
 app.use('/api/ledger', ledgerRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/student-loans', studentLoansRouter);
+app.use('/api/cards', cardServicesRouter);
+app.use('/api/payments', paymentsRouter);
+app.use('/api/telemetry', telemetryRouter);
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
