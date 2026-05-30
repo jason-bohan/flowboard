@@ -43,3 +43,72 @@ export async function deleteTask(id: number): Promise<void> {
   const res = await fetch(`${BASE}/${id}`, { method: 'DELETE' });
   return handleResponse<void>(res);
 }
+
+// ── Financial API ───────────────────────────────────────────────────────────────
+
+export async function fetchBalance(): Promise<{ currentBalance: number; asOf: string }> {
+  const res = await fetch('/api/ledger/balance');
+  return handleResponse(res);
+}
+
+export async function fetchLedger(): Promise<any[]> {
+  const res = await fetch('/api/ledger');
+  return handleResponse(res);
+}
+
+export async function fetchCards(): Promise<any[]> {
+  const res = await fetch('/api/cards');
+  return handleResponse(res);
+}
+
+export async function lockCard(id: number): Promise<any> {
+  const res = await fetch(`/api/cards/${id}/lock`, { method: 'POST' });
+  return handleResponse(res);
+}
+
+export async function unlockCard(id: number): Promise<any> {
+  const res = await fetch(`/api/cards/${id}/unlock`, { method: 'POST' });
+  return handleResponse(res);
+}
+
+export async function fetchTransfers(): Promise<any[]> {
+  const res = await fetch('/api/payments/transfers');
+  return handleResponse(res);
+}
+
+export async function createTransfer(payload: any): Promise<any> {
+  const res = await fetch('/api/payments/transfers', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  return handleResponse(res);
+}
+
+export async function fetchBillPayees(): Promise<any[]> {
+  const res = await fetch('/api/payments/bill-payees');
+  return handleResponse(res);
+}
+
+export async function payBill(id: number, amount: number): Promise<any> {
+  const res = await fetch(`/api/payments/bill-payees/${id}/pay`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount }),
+  });
+  return handleResponse(res);
+}
+
+export async function submitMobileDeposit(amount: number, depositMethod?: string): Promise<any> {
+  const res = await fetch('/api/cards/mobile-deposit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount, depositMethod }),
+  });
+  return handleResponse(res);
+}
+
+export async function fetchInvoices(): Promise<any[]> {
+  const res = await fetch('/api/billing');
+  return handleResponse(res);
+}
