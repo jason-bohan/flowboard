@@ -12,6 +12,7 @@ import cardServicesRouter from './card-services.js';
 import paymentsRouter from './payments.js';
 import telemetryRouter from './telemetry.js';
 import flowModeRouter from './routes/flow-mode.js';
+import versionRouter from './routes/version.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -29,6 +30,7 @@ app.use('/api/cards', cardServicesRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
+app.use('/api', versionRouter);
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
