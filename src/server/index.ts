@@ -1,4 +1,5 @@
 import express from 'express';
+import { readFileSync } from 'fs';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
@@ -29,6 +30,11 @@ app.use('/api/cards', cardServicesRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
+
+app.get('/api/version', (_req, res) => {
+  const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-8'));
+  res.json({ version: pkg.version, name: pkg.name });
+});
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
