@@ -7,7 +7,7 @@ function DashboardSwitcher() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e17', color: '#9ca3af', padding: 32, fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+      <div style={{ minHeight: '100vh', background: '#22c55e', color: '#9ca3af', padding: 32, fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
         Loading…
       </div>
     );
