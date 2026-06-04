@@ -56,4 +56,8 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+app.get('/api/new-route', (_req, res) => {
+  res.json({ message: 'This is a new route' });
+});
+
 export { app };
