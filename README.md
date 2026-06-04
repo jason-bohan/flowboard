@@ -1,5 +1,7 @@
 # Flowboard
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/jason-bohan/flowboard)
+
 A minimal Kanban task board used to demo an AI SDLC agent framework. Agents pick up GitHub Issues, fix bugs, add features, and open PRs against this repo.
 
 ## Stack
