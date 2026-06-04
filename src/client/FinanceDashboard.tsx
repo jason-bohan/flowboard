@@ -13,7 +13,7 @@ type PanelId = 'transfer' | 'pay-bill' | 'deposit' | null;
 const fmt = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const COLORS = {
-  bg: '#0a0e17',
+  bg: '#22c55e',
   card: '#111827',
   border: '#1f2937',
   accent: '#cc0000',
