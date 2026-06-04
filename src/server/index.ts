@@ -40,6 +40,10 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
 });
 
+app.get('/api/new-route', (_req, res) => {
+  res.json({ message: 'This is the new route!' });
+});
+
 // Serve built React client in production
 const clientDist = resolve(__dirname, '../client');
 if (existsSync(clientDist)) {
