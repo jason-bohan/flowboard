@@ -40,6 +40,11 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
 });
 
+// New endpoint for /api/ping
+app.get('/api/ping', (_req, res) => {
+  res.json({ pong: true, timestamp: new Date().toISOString() });
+});
+
 // Serve built React client in production
 const clientDist = resolve(__dirname, '../client');
 if (existsSync(clientDist)) {
