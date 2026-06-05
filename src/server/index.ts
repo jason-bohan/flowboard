@@ -36,8 +36,8 @@ app.get('/api/version', (_req, res) => {
   res.json({ version: pkg.version, name: pkg.name });
 });
 
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', service: 'flowboard' });
+app.get('/api/healthz', (_req, res) => {
+  res.json({ status: 'ok' });
 });
 
 // Serve built React client in production
