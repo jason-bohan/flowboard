@@ -49,6 +49,10 @@ if (existsSync(clientDist)) {
   });
 }
 
+app.get('/api/ping', (_req, res) => {
+  res.json({ pong: true });
+});
+
 if (process.env.NODE_ENV !== 'test') {
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
