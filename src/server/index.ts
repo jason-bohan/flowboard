@@ -50,6 +50,10 @@ if (existsSync(clientDist)) {
 }
 
 if (process.env.NODE_ENV !== 'test') {
+  app.get('/api/buildinfo', (_req, res) => {
+    res.json({ build: 'ok' });
+  });
+
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
     console.log(`Flowboard API listening on http://localhost:${PORT}`);
