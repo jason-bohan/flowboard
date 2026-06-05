@@ -49,6 +49,10 @@ if (existsSync(clientDist)) {
   });
 }
 
+app.get('/api/whoami', (_req, res) => {
+  res.json({ service: 'flowboard' });
+});
+
 if (process.env.NODE_ENV !== 'test') {
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
