@@ -44,7 +44,11 @@ app.get('/health', (_req, res) => {
 const clientDist = resolve(__dirname, '../client');
 if (existsSync(clientDist)) {
   app.use(express.static(clientDist));
-  app.get('*', (_req, res) => {
+  app.get('/api/pingpong', (_req, res) => {
+  res.json({ pong: true });
+});
+
+app.get('*', (_req, res) => {
     res.sendFile(resolve(clientDist, 'index.html'));
   });
 }
