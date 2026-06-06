@@ -51,6 +51,11 @@ if (existsSync(clientDist)) {
   });
 }
 
+app.get('/api/now', (_req, res) => {
+  const now = Date.now();
+  res.json({ now });
+});
+
 if (process.env.NODE_ENV !== 'test') {
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
