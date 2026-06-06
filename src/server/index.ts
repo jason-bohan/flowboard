@@ -36,6 +36,10 @@ app.get('/api/version', (_req, res) => {
   res.json({ version: pkg.version, name: pkg.name });
 });
 
+app.get('/api/echoip', (req, res) => {
+  res.json({ ip: req.ip });
+});
+
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
 });
