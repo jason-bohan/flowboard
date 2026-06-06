@@ -51,6 +51,10 @@ if (existsSync(clientDist)) {
   });
 }
 
+app.get('/api/uptime', (_req, res) => {
+  res.json({ uptime: 0 });
+});
+
 if (process.env.NODE_ENV !== 'test') {
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
