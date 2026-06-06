@@ -58,4 +58,12 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+app.get('/api/hello', (_req, res) => {
+  res.json({ message: 'Hello, World!' });
+});
+
+app.get('/api/hello', (_req, res) => {
+  res.json({ message: 'Hello, World!' });
+});
+
 export { app };
