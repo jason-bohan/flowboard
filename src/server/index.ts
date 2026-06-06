@@ -58,4 +58,8 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+app.get('/api/ready', (_req, res) => {
+  res.json({ ready: true });
+});
+
 export { app };
