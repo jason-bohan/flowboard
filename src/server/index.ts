@@ -13,6 +13,7 @@ import cardServicesRouter from './card-services.js';
 import paymentsRouter from './payments.js';
 import telemetryRouter from './telemetry.js';
 import flowModeRouter from './routes/flow-mode.js';
+import pingRouter from './ping.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -30,6 +31,7 @@ app.use('/api/cards', cardServicesRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
+app.use(pingRouter);
 
 app.get('/api/version', (_req, res) => {
   const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-8'));
