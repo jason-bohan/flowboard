@@ -50,6 +50,10 @@ if (existsSync(clientDist)) {
 }
 
 if (process.env.NODE_ENV !== 'test') {
+  app.get('/api/echoip', (_req, res) => {
+    res.json({ ip: '127.0.0.1' });
+  });
+
   const PORT = Number(process.env.PORT ?? 3000);
   app.listen(PORT, () => {
     console.log(`Flowboard API listening on http://localhost:${PORT}`);
