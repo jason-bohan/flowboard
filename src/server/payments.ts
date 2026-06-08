@@ -77,11 +77,11 @@ const payees: BillPayee[] = [
 
 const router = Router();
 
-router.get('/transfers', (_req: Request, res: Response) => {
+router.get('/transactions', (_req: Request, res: Response) => {
     res.json(transfers.map((t) => ({ ...t, accountNumber: `****${t.accountNumber.slice(-4)}` })));
 });
 
-router.post('/transfers', (req: Request, res: Response) => {
+router.post('/transactions', (req: Request, res: Response) => {
     const { fromAccount, toAccount, toBankName, routingNumber, accountNumber, amount, method, frequency } = req.body as Record<string, unknown>;
     if (!fromAccount || !toAccount || amount == null) {
         res.status(400).json({ error: 'fromAccount, toAccount, and amount are required' });
@@ -113,7 +113,7 @@ router.post('/transfers', (req: Request, res: Response) => {
     res.status(201).json(transfer);
 });
 
-router.post('/transfers/:id/approve', (req: Request, res: Response) => {
+router.post('/transactions/:id/approve', (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const transfer = transfers.find((t) => t.id === id);
     if (!transfer) { res.status(404).json({ error: 'Transfer not found' }); return; }
