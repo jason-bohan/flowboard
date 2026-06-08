@@ -42,6 +42,10 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
 });
 
+app.get('/api/hello-world', (_req, res) => {
+  res.json({ message: 'Hello, World!' });
+});
+
 // Serve built React client in production
 const clientDist = resolve(__dirname, '../client');
 if (existsSync(clientDist)) {
