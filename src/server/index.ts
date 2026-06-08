@@ -28,7 +28,7 @@ app.use('/api/ledger', ledgerRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/student-loans', studentLoansRouter);
 app.use('/api/cards', cardServicesRouter);
-app.use('/api/payments', paymentsRouter);
+app.use('/api/payments/transactions', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
 app.use(pingRouter);
