@@ -4,7 +4,7 @@ import { app } from '../server/index.js';
 
 describe('External Payments API — ACH, wire, Bill Pay, Zelle', () => {
     it('lists transfers', async () => {
-        const res = await request(app).get('/api/payments/transfers');
+        const res = await request(app).get('/api/payments/transactions');
 
         expect(res.status).toBe(200);
         expect(Array.isArray(res.body)).toBe(true);
@@ -12,7 +12,7 @@ describe('External Payments API — ACH, wire, Bill Pay, Zelle', () => {
 
     it('creates an ACH transfer', async () => {
         const res = await request(app)
-            .post('/api/payments/transfers')
+            .post('/api/payments/transactions')
             .send({ fromAccount: 'Checking (*4567)', toAccount: 'Friend Payment', routingNumber: '021000021', accountNumber: '123456789', amount: 150.00, method: 'ach' });
 
         expect(res.status).toBe(201);
@@ -22,7 +22,7 @@ describe('External Payments API — ACH, wire, Bill Pay, Zelle', () => {
 
     it('creates a wire transfer with fee', async () => {
         const res = await request(app)
-            .post('/api/payments/transfers')
+            .post('/api/payments/transactions')
             .send({ fromAccount: 'Checking (*4567)', toAccount: 'Escrow Account', routingNumber: '021000021', accountNumber: '987654321', amount: 50000.00, method: 'wire' });
 
         expect(res.status).toBe(201);
@@ -32,7 +32,7 @@ describe('External Payments API — ACH, wire, Bill Pay, Zelle', () => {
 
     it('requires approval for large transfers', async () => {
         const res = await request(app)
-            .post('/api/payments/transfers')
+            .post('/api/payments/transactions')
             .send({ fromAccount: 'Checking (*4567)', toAccount: 'Large Vendor', routingNumber: '021000021', accountNumber: '555555555', amount: 25000.00, method: 'ach' });
 
         expect(res.status).toBe(201);
@@ -41,11 +41,11 @@ describe('External Payments API — ACH, wire, Bill Pay, Zelle', () => {
 
     it('approves a pending transfer', async () => {
         const created = await request(app)
-            .post('/api/payments/transfers')
+            .post('/api/payments/transactions')
             .send({ fromAccount: 'Checking (*4567)', toAccount: 'Approved Payee', routingNumber: '021000021', accountNumber: '111111111', amount: 500.00, method: 'ach' });
 
         const res = await request(app)
-            .post(`/api/payments/transfers/${created.body.id}/approve`)
+            .post(`/api/payments/transactions/${created.body.id}/approve`)
             .send({ approvedBy: 'manager-7' });
 
         expect(res.status).toBe(200);
