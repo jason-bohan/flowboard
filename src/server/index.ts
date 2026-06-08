@@ -38,7 +38,7 @@ app.get('/api/version', (_req, res) => {
   res.json({ version: pkg.version, name: pkg.name });
 });
 
-app.get('/health', (_req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'flowboard' });
 });
 
