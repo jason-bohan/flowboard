@@ -32,6 +32,7 @@ app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
 app.use(pingRouter);
+app.use('/api/ping', require('./ping-uptime').default);
 
 app.get('/api/version', (_req, res) => {
   const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-8'));
