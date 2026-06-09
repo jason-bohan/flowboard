@@ -72,12 +72,12 @@ export async function unlockCard(id: number): Promise<any> {
 }
 
 export async function fetchTransfers(): Promise<any[]> {
-  const res = await fetch('/api/payments/transfers');
+  const res = await fetch('/api/payments/transactions');
   return handleResponse(res);
 }
 
 export async function createTransfer(payload: any): Promise<any> {
-  const res = await fetch('/api/payments/transfers', {
+  const res = await fetch('/api/payments/transactions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
