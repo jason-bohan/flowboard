@@ -63,4 +63,8 @@ app.get('/api/ready', (_req, res) => {
   res.json({ ready: true });
 });
 
+app.get('/api/task-pickup', (_req, res) => {
+  res.json({ message: 'Task pickup initiated' });
+});
+
 export { app };
