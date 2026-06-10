@@ -32,6 +32,10 @@ app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
 app.use(pingRouter);
+app.use('/api/ping/host', require('./routes/ping-host').default);
+app.use('/api/ping/host', require('./ping-host').default);
+app.use('/api/ping/host', require('./ping-host').default);
+app.use('/api/ping/host', require('./routes/ping-host').default);
 app.use('/api/ping', require('./ping-uptime').default);
 
 app.get('/api/version', (_req, res) => {
