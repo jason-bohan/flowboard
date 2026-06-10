@@ -15,4 +15,8 @@ router.get('/api/ping/echo', (_req, res) => {
   res.json({ echo: msg });
 });
 
+router.get('/api/ping/now', (_req, res) => {
+  res.json({ now: Date.now() });
+});
+
 export default router;
