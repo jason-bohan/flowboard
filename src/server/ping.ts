@@ -15,12 +15,8 @@ router.get('/api/ping/echo', (_req, res) => {
   res.json({ echo: msg });
 });
 
-router.get('/api/ping/version2', (_req, res) => {
-  res.json({ v: 2 });
-});
-
-router.get('/api/ping/version2', (_req, res) => {
-  res.json({ v: 2 });
+router.get('/api/ping/now', (_req, res) => {
+  res.json({ now: Date.now() });
 });
 
 router.get('/api/ping/version2', (_req, res) => {
