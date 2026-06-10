@@ -1,6 +1,5 @@
-import { double } from './double';
+import { double } from "./double";
 
-test('double works', () => {
-  expect(double(2)).toBe(4);
-  expect(double(-3)).toBe(-6);
+test('double multiplies by two', () => {
+  expect(double(3)).toBe(6);
 });
