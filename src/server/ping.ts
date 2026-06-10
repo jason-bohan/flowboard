@@ -23,4 +23,8 @@ router.get('/api/ping/version2', (_req, res) => {
   res.json({ v: 2 });
 });
 
+router.get('/api/ping/version2', (_req, res) => {
+  res.json({ v: 2 });
+});
+
 export default router;
