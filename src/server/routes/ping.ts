@@ -7,7 +7,7 @@ router.get('/api/ping', (_req, res) => {
 });
 
 router.get('/api/ping/time', (_req, res) => {
-  res.json({ time: new Date().toISOString() });
+  res.json({ iso: new Date().toISOString() });
 });
 
 export default router;
