@@ -5,3 +5,5 @@ flowboard.db
 *.db-wal
 .env
 .env.local
+.claude/
+azure-pipelines.yml

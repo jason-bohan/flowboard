@@ -14,6 +14,7 @@ import paymentsRouter from './payments.js';
 import telemetryRouter from './telemetry.js';
 import flowModeRouter from './routes/flow-mode.js';
 import pingRouter from './ping.js';
+import pingTimeRouter from './routes/ping.js';
 import pingUptimeRouter from './ping-uptime.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -33,6 +34,7 @@ app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
 app.use(pingRouter);
+app.use(pingTimeRouter);
 app.use('/api/ping', pingUptimeRouter);
 
 app.get('/api/version', (_req, res) => {
