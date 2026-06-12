@@ -3,7 +3,10 @@ services:
     name: flowboard
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    # NODE_ENV=production makes `npm install` skip devDependencies, but the build
+    # tools (typescript, vite, @vitejs/plugin-react, @types/*) live there. Force
+    # devDependencies for the build so `npm run build` (tsc + vite) can run.
+    buildCommand: npm install --include=dev && npm run build
     startCommand: node dist/server/index.js
     envVars:
       - key: NODE_ENV
