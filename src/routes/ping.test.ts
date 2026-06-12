@@ -1,5 +1,6 @@
+import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import app from '../server';
+import { app } from '../server/index.js';
 
 describe('GET /api/ping/uptime', () => {
   it('should return uptime in seconds', async () => {
