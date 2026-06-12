@@ -1,8 +1,8 @@
 import request from 'supertest';
-import { app } from '../server/index.js';
+import app from '../server';
 
-describe('Ping routes', () => {
-  it('GET /api/ping/uptime returns uptime in seconds', async () => {
+describe('GET /api/ping/uptime', () => {
+  it('should return uptime in seconds', async () => {
     const response = await request(app)
       .get('/api/ping/uptime')
       .expect(200);

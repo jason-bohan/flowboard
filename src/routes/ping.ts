@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/uptime', (_req, res) => {
+router.get('/api/ping/uptime', (req, res) => {
   res.json({ uptimeSeconds: process.uptime() });
 });
 
