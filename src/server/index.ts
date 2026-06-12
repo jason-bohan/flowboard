@@ -33,7 +33,7 @@ app.use('/api/cards', cardServicesRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
-app.use('/api/ping', pingRouter);
+app.use(pingRouter);
 app.use(pingTimeRouter);
 app.use('/api/ping', pingUptimeRouter);
 

@@ -27,4 +27,8 @@ router.get('/api/ping/pid', (_req, res) => {
   res.json({ pid: process.pid });
 });
 
+router.get('/api/ping/memory', (_req, res) => {
+  res.json({ rss: process.memoryUsage().rss });
+});
+
 export default router;
