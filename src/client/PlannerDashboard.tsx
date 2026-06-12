@@ -2,6 +2,7 @@ import { useState, useEffect, type CSSProperties } from 'react';
 import type { Task } from './types.js';
 import { fetchTasks, createTask, updateTask, deleteTask } from './api.js';
 import FlowModeSelector from './FlowModeSelector.js';
+import TaskDetailSidesheet from './TaskDetailSidesheet.js';
 
 const STATUSES: Task['status'][] = ['todo', 'in-progress', 'done'];
 
@@ -188,6 +189,7 @@ export default function PlannerDashboard() {
   const [newTitle, setNewTitle] = useState('');
   const [formError, setFormError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   useEffect(() => {
     fetchTasks()
@@ -271,18 +273,34 @@ export default function PlannerDashboard() {
                     <div style={styles.empty}>No tasks here</div>
                   )}
                   {colTasks.map((task) => (
-                    <div key={task.id} style={styles.taskCard}>
+                    <div
+                      key={task.id}
+                      style={{ ...styles.taskCard, cursor: 'pointer' }}
+                      onClick={() => setSelectedTask(task)}
+                    >
                       <div style={styles.cardTitle}>{task.title}</div>
                       {task.description && (
                         <div style={styles.cardDesc}>{task.description}</div>
                       )}
                       <div style={styles.cardActions}>
                         {status !== 'done' && (
-                          <button style={styles.moveBtn} onClick={() => handleMove(task)}>
+                          <button
+                            style={styles.moveBtn}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleMove(task);
+                            }}
+                          >
                             Move → {COLUMN_LABELS[STATUSES[STATUSES.indexOf(status) + 1]]}
                           </button>
                         )}
-                        <button style={styles.deleteBtn} onClick={() => handleDelete(task.id)}>
+                        <button
+                          style={styles.deleteBtn}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(task.id);
+                          }}
+                        >
                           Delete
                         </button>
                       </div>
@@ -294,6 +312,15 @@ export default function PlannerDashboard() {
           })}
         </div>
       )}
+
+      <TaskDetailSidesheet
+        task={selectedTask}
+        onClose={() => setSelectedTask(null)}
+        onUpdated={(updated) => {
+          setTasks((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
+          setSelectedTask(updated);
+        }}
+      />
     </div>
   );
 }
