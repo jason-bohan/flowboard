@@ -27,4 +27,8 @@ router.get('/api/ping/pid', (_req, res) => {
   res.json({ pid: process.pid });
 });
 
+router.get('/api/ping/host', (_req, res) => {
+  res.json({ host: require('os').hostname() });
+});
+
 export default router;
