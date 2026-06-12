@@ -68,4 +68,8 @@ app.get('/api/task-pickup', (_req, res) => {
   res.json({ message: 'Task pickup initiated' });
 });
 
+app.get('/api/test-issue', (_req, res) => {
+  res.json({ message: 'Test issue endpoint' });
+});
+
 export { app };
