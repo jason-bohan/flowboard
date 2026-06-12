@@ -14,6 +14,7 @@ import paymentsRouter from './payments.js';
 import telemetryRouter from './telemetry.js';
 import flowModeRouter from './routes/flow-mode.js';
 import pingRouter from './ping.js';
+import pingUptimeRouter from './ping-uptime.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -32,7 +33,7 @@ app.use('/api/payments', paymentsRouter);
 app.use('/api/telemetry', telemetryRouter);
 app.use('/api', flowModeRouter);
 app.use(pingRouter);
-app.use('/api/ping', require('./ping-uptime').default);
+app.use('/api/ping', pingUptimeRouter);
 
 app.get('/api/version', (_req, res) => {
   const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-8'));
