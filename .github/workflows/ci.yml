@@ -17,7 +17,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - run: npm ci
@@ -25,3 +25,29 @@ jobs:
       - run: npm test
 
       - run: npx tsc --noEmit
+
+      # Boot the compiled server and confirm it actually starts and serves
+      # traffic. tsc --noEmit and vite build pass on runtime-only faults like a
+      # CommonJS require() in an ESM build, which crash-loop on deploy. This
+      # exercises real module loading + the /health route to catch them in CI.
+      - name: Smoke test (boot server + health check)
+        run: |
+          npm run build
+          PORT=10000 node dist/server/index.js &
+          SERVER_PID=$!
+          for i in $(seq 1 20); do
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+              echo "::error::Server process exited before becoming healthy"
+              wait "$SERVER_PID" || true
+              exit 1
+            fi
+            if curl -fsS http://localhost:10000/health > /dev/null; then
+              echo "Server healthy"
+              kill "$SERVER_PID" 2>/dev/null || true
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "::error::Server did not become healthy within 20s"
+          kill "$SERVER_PID" 2>/dev/null || true
+          exit 1
