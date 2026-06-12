@@ -13,7 +13,7 @@ const COLUMN_LABELS: Record<Task['status'], string> = {
 };
 
 const PALETTE = {
-  bg: '#22c55e',
+  bg: 'red',
   card: '#15232e',
   border: '#1e3a4d',
   accent: '#2a9fd6',
